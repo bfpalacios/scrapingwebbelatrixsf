@@ -11,30 +11,46 @@ import org.jsoup.select.Elements;
 public class MyScrapingWeb {
 	
 	
-public static final String url = "https://jarroba.com/";
+public static final String url = "http://www.yahoo.com";
 	
     public static void main (String args[]) {
 		
+    	System.out.println("Inicio");
+		
         // Compruebo si me da un 200 al hacer la petición
         if (getStatusConnectionCode(url) == 200) {
-			
+
+        	System.out.println("entro");
             // Obtengo el HTML de la web en un objeto Document
             Document document = getHtmlDocument(url);
 			
+            
+            Element body = document.body();
+            
+            
             // Busco todas las entradas que estan dentro de: 
-            Elements entradas = document.select("div.col-md-4.col-xs-12").not("div.col-md-offset-2.col-md-4.col-xs-12");
+            Elements entradas = body.getAllElements();
+            
             System.out.println("Número de entradas en la página inicial de Jarroba: "+entradas.size()+"\n");
 			
+            
+            StringBuilder tmp = new StringBuilder();
             // Paseo cada una de las entradas
             for (Element elem : entradas) {
-                String titulo = elem.getElementsByClass("tituloPost").text();
-                String autor = elem.getElementsByClass("autor").toString();
-                String fecha = elem.getElementsByClass("fecha").text();
-				
-                System.out.println(titulo+"\n"+autor+"\n"+fecha+"\n\n");
+                //String hashTag = elem.getElementsByClass("#").text();
+                //String twitter = elem.getElementsByClass("@").toString();
+                String fecha = elem.getElementsByClass("fecha").toString();
+
+                //System.out.println(hashTag+"\n"+twitter+"\n"+fecha+"\n\n");
+                System.out.println("Fecha "+fecha+"\n\n");
 				
                 // Con el método "text()" obtengo el contenido que hay dentro de las etiquetas HTML
                 // Con el método "toString()" obtengo todo el HTML con etiquetas incluidas
+                
+
+                //tmp.append(hashTag).append("\n");
+                //tmp.append(twitter).append("\n");
+                tmp.append(fecha).append("\n");
             }
 				
         }else
@@ -54,11 +70,12 @@ public static final String url = "https://jarroba.com/";
 	 * @return Status Code
 	 */
 	public static int getStatusConnectionCode(String url) {
-			
+		System.out.println("getStatusConnectionCode");
+	    	
 	    Response response = null;
 		
 	    try {
-		response = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(100000).ignoreHttpErrors(true).execute();
+		response = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(1000000).ignoreHttpErrors(true).execute();
 	    } catch (IOException ex) {
 		System.out.println("Excepción al obtener el Status Code: " + ex.getMessage());
 	    }
