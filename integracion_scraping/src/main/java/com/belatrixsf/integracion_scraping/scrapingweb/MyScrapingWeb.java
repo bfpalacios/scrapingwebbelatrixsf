@@ -30,7 +30,7 @@ public class MyScrapingWeb {
 	public String TWITTER = "a[href]";
 
 	public static void main(String args[]) {
-		procesarScrapingWeb("", "", url);
+		//procesarScrapingWeb("", "", url);
 	}
 	
 	
@@ -44,7 +44,7 @@ public class MyScrapingWeb {
 	 * @param tipoTag
 	 * @param url 
 	 */
-	public static void procesarScrapingWeb(String tagABuscar, String tipoTag, String url) {
+	public   void procesarScrapingWeb(String tagABuscar, String tipoTag, String url) {
 		// Compruebo si me da un 200 al hacer la petición
 		if (getStatusConnectionCode(url) == 200) {
 
@@ -57,7 +57,7 @@ public class MyScrapingWeb {
 			System.out.println("El Status Code no es OK es: " + getStatusConnectionCode(url));
 	}
 
-	public static void buscarTagPorTipo(String tagABuscar, String tipo, Document document, String url) {
+	public   void buscarTagPorTipo(String tagABuscar, String tipo, Document document, String url) {
 
 		//objeto para guardar las entradas de las paginas webs
 		StringBuilder contenidoArchivoSalida = new StringBuilder();
@@ -176,7 +176,7 @@ public class MyScrapingWeb {
 	 * @param url
 	 * @return Status Code
 	 */
-	public static int getStatusConnectionCode(String url) {
+	public   int getStatusConnectionCode(String url) {
 		System.out.println("getStatusConnectionCode");
 
 		Response response = null;
@@ -198,7 +198,7 @@ public class MyScrapingWeb {
 	 * @param url
 	 * @return Documento con el HTML
 	 */
-	public static Document getHtmlDocument(String url) {
+	public   Document getHtmlDocument(String url) {
 
 		Document doc = null;
 		try {
