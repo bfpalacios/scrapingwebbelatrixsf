@@ -2,18 +2,21 @@ package com.belatrixsf.integracion_scraping.util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.ArrayList; 
 
 public class Archivo {
 
-	static private String rutaArchivoUrlS = "/Users/bfpalacios/Documents/BELTRAIXSF/LISTA_URL.txt";
-	static private String rutaArchivoUrlOut = "/Users/bfpalacios/Documents/BELTRAIXSF/SCRAPINGWEB_DOCUMENT_OUT_";
-	static private ArrayList<String> listaUrl;
+	private static final String RUTA_ARCHIVO_INPUT 	= "C:\\SCRAPINGWEB\\LISTA_URL.txt"; 
+	private static final String RUTA_ARCHIVO_OUTPUT = "C:\\SCRAPINGWEB\\";  
+	private static final String ARCHIVO_NAME_OUTPUT = "SCRAPINGWEB_DOCUMENT_OUT_";	
+	private static ArrayList<String> listaUrl;
 
 	/**
 	 * Con esta método se obtiene una lista de strings 
@@ -23,7 +26,7 @@ public class Archivo {
 	 * @param rutaArchivo
 	 * @return listaUrl 
 	 */
-	static public ArrayList<String> obtenerListaURLParaScrapingWeb(String rutaArchivo)
+	public    ArrayList<String> obtenerListaURLParaScrapingWeb(String rutaArchivo)
 			throws FileNotFoundException, IOException {
 
 		// definicipn de variable e inicializacion
@@ -54,45 +57,40 @@ public class Archivo {
 	 * pagina web.
 	 * 
 	 * @param nombreURL
-	 * @param scrapingWebDocument
+	 * @param contenidoArchivoSalida
 	 * @return  
 	 */
-	static void crearArchivoScrapingWeb(String nombreURL, String scrapingWebDocument)
+	public    void crearArchivoScrapingWeb(String nombreURL, StringBuilder contenidoArchivoSalida)
 			throws FileNotFoundException, IOException {
 
-		PrintWriter out = null;
-		BufferedWriter bw = null;
-		FileWriter fw = null;
-		try {
-			fw = new FileWriter(rutaArchivoUrlOut+"_"+nombreURL+".txt", true);
-			bw = new BufferedWriter(fw);
-			out = new PrintWriter(bw);
-			out.println(scrapingWebDocument);
-		} catch (IOException e) {
-			// File writing/opening failed at some stage.
-		} finally {
-			try {
-				if (out != null) {
-					out.close(); // Will close bw and fw too
-				} else if (bw != null) {
-					bw.close(); // Will close fw too
-				} else if (fw != null) {
-					fw.close();
-				} else {
-					// Oh boy did it fail hard! :3
-				}
-			} catch (IOException e) {
-				// Closing the file writers failed for some obscure reason
-			}
+			String ruta = RUTA_ARCHIVO_OUTPUT+ARCHIVO_NAME_OUTPUT+nombreURL.substring(7, nombreURL.length()).replaceAll("/", "")+".txt";
+	       
+	        File archivo = new File(ruta);
+	        BufferedWriter bw;
+	        if(archivo.exists()) {
+	            bw = new BufferedWriter(new FileWriter(archivo));
+	            bw.write(contenidoArchivoSalida.toString());
+	        } else {
+	            bw = new BufferedWriter(new FileWriter(archivo));
+	            bw.write(contenidoArchivoSalida.toString());
+	        }
+	        bw.close();
+	   }
+
+	         
+
+	/*public static void main(String[] args) throws IOException {
+		ArrayList<String> listaUrl = obtenerListaURLParaScrapingWeb(RUTA_ARCHIVO_INPUT);
+		StringBuilder contenidoArchivoSalida  = new StringBuilder("-");
+		 
+		for (String url : listaUrl) {
+			
+			System.out.println("URL " + url);
+
+			contenidoArchivoSalida.append(url).append(System.getProperty("line.separator"));
+			crearArchivoScrapingWeb(url, contenidoArchivoSalida); 
 		}
-
-	}
-
-	public static void main(String[] args) throws IOException {
-		obtenerListaURLParaScrapingWeb(rutaArchivoUrlS);
-		
-		
-		crearArchivoScrapingWeb("www.yahoo.com", "hola mundo");
-	}
+		 
+	}*/
 
 }

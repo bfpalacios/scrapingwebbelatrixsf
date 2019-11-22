@@ -43,7 +43,7 @@ public class ScrapingWebThread {
 	
 	public static void main(String[] args) {
 
-		Cliente cliente1 = new Cliente("Cliente 1", new int[] { 2, 2, 1, 5, 2, 3 });
+		/*Cliente cliente1 = new Cliente("Cliente 1", new int[] { 2, 2, 1, 5, 2, 3 });
 		Cliente cliente2 = new Cliente("Cliente 2", new int[] { 1, 3, 5, 1, 1 });
 
 		// Tiempo inicial de referencia
@@ -53,6 +53,8 @@ public class ScrapingWebThread {
 
 		cajera1.start();
 		cajera2.start();
+		
+		*/
 	}
 
 	
