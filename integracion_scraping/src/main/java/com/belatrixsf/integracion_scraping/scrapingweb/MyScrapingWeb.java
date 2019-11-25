@@ -73,8 +73,8 @@ public class MyScrapingWeb {
 	 
 					//Se crea el archivo de salida
 					try {
-						contenidoArchivoSalida.append("TAG A BUSCAR DE TIPO HASHTAG URL").append(tagABuscar).append("==> ").append(hrefHTML).append(System.getProperty("line.separator"))
-						.append(href).append(System.getProperty("line.separator"));
+						contenidoArchivoSalida.append("TAG A BUSCAR DE TIPO HASHTAG URL").append(tagABuscar).append("==> ").append(href).append(System.getProperty("line.separator"));
+						//.append(hrefHTML).append(System.getProperty("line.separator"));
 						documentoArchivo.crearArchivoScrapingWeb(url, contenidoArchivoSalida);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -102,8 +102,8 @@ public class MyScrapingWeb {
 					 
 					//Se crea el archivo de salida
 					try {
-						contenidoArchivoSalida.append("TAG A BUSCAR DE TIPO HASHTAG #").append(tagABuscar).append("==> ").append(hashTagConMichiHTML).append(System.getProperty("line.separator"))
-						.append(hashTagConMichi).append(System.getProperty("line.separator"));
+						contenidoArchivoSalida.append("TAG A BUSCAR DE TIPO HASHTAG #").append(tagABuscar).append("==> ").append(hashTagConMichi).append(System.getProperty("line.separator"));
+						//.append(hashTagConMichiHTML).append(System.getProperty("line.separator"));
 						documentoArchivo.crearArchivoScrapingWeb(url, contenidoArchivoSalida);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
