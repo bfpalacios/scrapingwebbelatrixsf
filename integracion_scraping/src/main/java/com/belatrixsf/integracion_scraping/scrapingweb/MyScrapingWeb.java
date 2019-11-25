@@ -18,19 +18,19 @@ public class MyScrapingWeb {
 
 	//public static final String url = "https://guiasbus.us.es/citarredessociales/twitter"; 
 	
-	public static final String url = "https://www.yahoo.com";
+	//public static final String url = "https://www.depor.com";
 	public static final String CONSTANTE_TIPO_AHREF = "1"; 
-	public static final String CONSTANTE_TIPO_AHREF_NO3 = "2"; 
+	public static final String CONSTANTE_TIPO_AHREF_NO2 = "2"; 
 	public static final String CONSTANTE_TIPO_TWITTER = "3"; 
 	
 	public static final String NOMBRE_ARCHIVO_OUTPUT = "SCRAPINGWEB_"; 
 
-	public String AHREF = "a[href]";
-	public String AHREF3 = "a[href*=#]";
+	public static String AHREF = "a[href]";
+	public String AHREF2 = "a[href*=#]";
 	public String TWITTER = "a[href]";
 
 	public static void main(String args[]) {
-		//procesarScrapingWeb("", "", url);
+		//procesarScrapingWeb(AHREF, "1", url);
 	}
 	
 	
@@ -44,7 +44,7 @@ public class MyScrapingWeb {
 	 * @param tipoTag
 	 * @param url 
 	 */
-	public   void procesarScrapingWeb(String tagABuscar, String tipoTag, String url) {
+	public static  void procesarScrapingWeb(String tagABuscar, String tipoTag, String url) {
 		// Compruebo si me da un 200 al hacer la petición
 		if (getStatusConnectionCode(url) == 200) {
 
@@ -57,17 +57,19 @@ public class MyScrapingWeb {
 			System.out.println("El Status Code no es OK es: " + getStatusConnectionCode(url));
 	}
 
-	public   void buscarTagPorTipo(String tagABuscar, String tipo, Document document, String url) {
+	public  static void buscarTagPorTipo(String tagABuscar, String tipo, Document document, String url) {
 
+		//declaracion de variables y objetos
+		Archivo documentoArchivo = new Archivo(); 
+		
 		//objeto para guardar las entradas de las paginas webs
 		StringBuilder contenidoArchivoSalida = new StringBuilder();
-	
+		
 		// Busco todas las entradas que estan dentro de:
 		Element body = document.body();
 		Elements entradas = body.getAllElements();
 		
 		Elements hashTags = entradas.select("a[href]"); // Select all links
-		Archivo documentoArchivo = new Archivo(); 
 		
 		
 		if(tipo.equals(CONSTANTE_TIPO_AHREF)) {
@@ -78,14 +80,15 @@ public class MyScrapingWeb {
 				String href = elem.select(tagABuscar).text();
 				
 				if (!href.equals("")) {
-					System.out.println("href " + href + "\n");
-					System.out.println("hrefHTML " + hrefHTML + "\n");
+					//System.out.println("href " + href + "\n");
+					//System.out.println("hrefHTML " + hrefHTML + "\n");
 					// Con el método "text()" obtengo el contenido que hay dentro de las etiquetas HTML
 					// Con el método "toString()" obtengo todo el HTML con etiquetas incluidas
 	 
 					//Se crea el archivo de salida
 					try {
-						contenidoArchivoSalida.append(href).append(System.getProperty("line.separator"));
+						contenidoArchivoSalida.append("TAG A BUSCAR DE TIPO HASHTAG URL").append(tagABuscar).append("==> ").append(hrefHTML).append(System.getProperty("line.separator"))
+						.append(href).append(System.getProperty("line.separator"));
 						documentoArchivo.crearArchivoScrapingWeb(url, contenidoArchivoSalida);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -99,16 +102,16 @@ public class MyScrapingWeb {
 			}
 		}
 		
-		if(tipo.equals(CONSTANTE_TIPO_AHREF)) {
+		if(tipo.equals(CONSTANTE_TIPO_AHREF_NO2)) {
 			
 			// referencias a los hashtags con #
 			for (Element elem : hashTags) {
-				String hashTagConMichiHTML = elem.attr("tagABuscar").toString();
-				String hashTagConMichi = elem.select("tagABuscar").text();
+				String hashTagConMichiHTML = elem.select(tagABuscar).toString();
+				String hashTagConMichi = elem.select(tagABuscar).text();
 	
 				if (!hashTagConMichiHTML.equals("")) {
-					System.out.println("hashTagConMichiHTML " + hashTagConMichiHTML + "\n");
-					System.out.println("hashTagConMichi " + hashTagConMichi + "\n");
+					//System.out.println("hashTagConMichiHTML " + hashTagConMichiHTML + "\n");
+					//System.out.println("hashTagConMichi " + hashTagConMichi + "\n");
 				}
 				// Con el método "text()" obtengo el contenido que hay dentro de las etiquetas HTML
 				// Con el método "toString()" obtengo todo el HTML con etiquetas incluidas
@@ -117,7 +120,8 @@ public class MyScrapingWeb {
 					 
 					//Se crea el archivo de salida
 					try {
-						contenidoArchivoSalida.append(hashTagConMichiHTML).append(System.getProperty("line.separator"));
+						contenidoArchivoSalida.append("TAG A BUSCAR DE TIPO HASHTAG #").append(tagABuscar).append("==> ").append(hashTagConMichiHTML).append(System.getProperty("line.separator"))
+						.append(hashTagConMichi).append(System.getProperty("line.separator"));
 						documentoArchivo.crearArchivoScrapingWeb(url, contenidoArchivoSalida);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -176,8 +180,8 @@ public class MyScrapingWeb {
 	 * @param url
 	 * @return Status Code
 	 */
-	public   int getStatusConnectionCode(String url) {
-		System.out.println("getStatusConnectionCode");
+	public static   int getStatusConnectionCode(String url) {
+		//System.out.println("getStatusConnectionCode");
 
 		Response response = null;
 
@@ -198,7 +202,7 @@ public class MyScrapingWeb {
 	 * @param url
 	 * @return Documento con el HTML
 	 */
-	public   Document getHtmlDocument(String url) {
+	public static  Document getHtmlDocument(String url) {
 
 		Document doc = null;
 		try {
