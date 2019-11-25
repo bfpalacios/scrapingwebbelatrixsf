@@ -1,11 +1,7 @@
 package com.belatrixsf.integracion_scraping.negocio;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
+import java.io.IOException;  
+import java.util.ArrayList;  
 import com.belatrixsf.integracion_scraping.dao.ScrapingWebDAO;
 import com.belatrixsf.integracion_scraping.dto.modelo.ScrapingWeb;
 import com.belatrixsf.integracion_scraping.excepcion.DAOExcepcion;
@@ -16,22 +12,27 @@ import com.belatrixsf.integracion_scraping.util.MyProperties;
 public class ScrapingWebNegocio extends Thread {
 	
 	
-	
+	//variables de instancia
 	private String nombre;
 	private static Archivo archivo;
 	private ArrayList<ScrapingWeb> listaTagsRepository;
-	private long initialTime;
-	
-	 
+	private long initialTime; 
     private static ScrapingWebDAO scrapingWebDAO;
-
+    
+    //metodo constructos con parametros
 	public ScrapingWebNegocio(String nombre, ArrayList<ScrapingWeb> listaTagsRepository, long initialTime) {
 		super();
 		this.nombre = nombre;
 		this.listaTagsRepository = listaTagsRepository;
 		this.initialTime = initialTime;
 	}
-
+	
+	
+	/**
+	 * Con esta método se realiza el proceso de forma paralela y mas rapida 
+	 * que una funciona secuencial.
+	 *
+	 */
 	@Override
 	public void run() {
 		MyProperties myProperties = new MyProperties();
@@ -39,7 +40,7 @@ public class ScrapingWebNegocio extends Thread {
 		
 	
 		 
-		// 1.- Se obtiene las urls a buscar scrapingweb
+		// 1.- Se obtiene las urls del archivo de entrada a buscar scrapingweb
 		try {
 
 			listaUrlS = archivo.obtenerListaURLParaScrapingWeb(myProperties.getPropValueRutaInput());
@@ -50,11 +51,11 @@ public class ScrapingWebNegocio extends Thread {
 		}
 
 		// 2.- Se obtiene la lista de los tags por tipo a buscar en el scrapingweb
-		//for (ScrapingWeb scrapingWeb : ScrapingWeb) {
+		//los taggs se obtienen de una tabla de base de datos parametrizable
 		for (ScrapingWeb scrapingWeb : listaTagsRepository) {
 
-			System.out.println("BUSCAR POR TIPO TAGS " + scrapingWeb.getTipo());
-			System.out.println("BUSCAR POR  TAGS " + scrapingWeb.getTag());
+			//System.out.println("BUSCAR POR TIPO TAGS " + scrapingWeb.getTipo());
+			//System.out.println("BUSCAR POR  TAGS " + scrapingWeb.getTag());
 
 			// 3.- Iterar a la invocacion del scraping y la generacion de archivo de salida
 			for (String url : listaUrlS) {
@@ -72,36 +73,11 @@ public class ScrapingWebNegocio extends Thread {
 	} 
 	
 
-	//cuando se ejecuta el proceso sin utilizar hilos se demora El scraping web  HA TERMINADO DE PROCESAR  EN EL TIEMPO: 126seg
-	//cuando se ejecuta el proceso utilizando hilos  El scraping web Invocacion al scrapingweb hilos HA TERMINADO DE PROCESAR  EN EL TIEMPO: 189seg
-
+	 
 	public static void main(String args[]) {
 
-		/*ScrapingWeb scrapingWeb1 = new ScrapingWeb();
-		ScrapingWeb scrapingWeb2 = new ScrapingWeb(); 
-		ScrapingWeb scrapingWeb3 = new ScrapingWeb();
-
-		scrapingWeb1.setTipo("1");
-		scrapingWeb1.setTag("a[href]");
-		listaTagsTemp.add(scrapingWeb1);
-
-		scrapingWeb2.setTipo("2");
-		scrapingWeb2.setTag("a[href*=#]");
-		listaTagsTemp.add(scrapingWeb2);
-		
-
-		scrapingWeb3.setTipo("3");
-		scrapingWeb3.setTag("title");
-		listaTagsTemp.add(scrapingWeb3);*/
-
-		// consultarScrapingWeb();
-		
-
-		ArrayList<ScrapingWeb> listaTagsTemp = new ArrayList<ScrapingWeb>();
-		
-	//se inicia conexion
-		
-		
+		  
+		//se inicia conexion 
 		ArrayList<ScrapingWeb> listaTagsRepository = null;
 		try {
 			listaTagsRepository = (ArrayList<ScrapingWeb>) scrapingWebDAO.listar();
@@ -120,6 +96,11 @@ public class ScrapingWebNegocio extends Thread {
 		//consultarScrapingWeb();
 	}
 	
+	/**
+	 * Con esta método se ejecuta de forma secuencial la creacion de archivos de salida
+	 * despues de realizar la busqueda por scraping web.
+	 *  
+	 */ 
 	public static String consultarScrapingWeb() {
 
 		// variables ArrayList<String>

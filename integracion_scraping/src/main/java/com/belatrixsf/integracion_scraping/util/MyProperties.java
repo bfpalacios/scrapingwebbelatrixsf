@@ -57,13 +57,13 @@ public class MyProperties {
   
 			rutaOutPut = prop.getProperty("ruta.archivo.output"); 
   
-			System.out.println(" ruta output" + rutaOutPut);
+			//System.out.println(" ruta output" + rutaOutPut);
 		} catch (Exception e) {
 			System.out.println("Exception: " + e);
 		} finally {
 			inputStream.close();
 		}
-		return rutaInput;
+		return rutaOutPut;
 	}
 	
 	

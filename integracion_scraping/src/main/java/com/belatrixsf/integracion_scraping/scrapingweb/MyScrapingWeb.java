@@ -13,27 +13,15 @@ import com.belatrixsf.integracion_scraping.util.Archivo;
 
 public class MyScrapingWeb {
 
-	// atributos de instancia
-	// private StringBuilder contenidoArchivoOutput;
-
-	//public static final String url = "https://guiasbus.us.es/citarredessociales/twitter"; 
+	// atributos de instancia 
 	
-	//public static final String url = "https://www.depor.com";
+	//CONSTANTES
 	public static final String CONSTANTE_TIPO_AHREF = "1"; 
 	public static final String CONSTANTE_TIPO_AHREF_NO2 = "2"; 
-	public static final String CONSTANTE_TIPO_TWITTER = "3"; 
-	
+	public static final String CONSTANTE_TIPO_TWITTER = "3";  
 	public static final String NOMBRE_ARCHIVO_OUTPUT = "SCRAPINGWEB_"; 
-
-	public static String AHREF = "a[href]";
-	public String AHREF2 = "a[href*=#]";
-	public String TWITTER = "a[href]";
-
-	public static void main(String args[]) {
-		//procesarScrapingWeb(AHREF, "1", url);
-	}
-	
-	
+ 
+ 
 	/**
 	 * Con esta método se procesan los tags a buscar por tipo 
 	 * en las urls solicitadas. Al finalizar las busquedas 
@@ -80,8 +68,6 @@ public class MyScrapingWeb {
 				String href = elem.select(tagABuscar).text();
 				
 				if (!href.equals("")) {
-					//System.out.println("href " + href + "\n");
-					//System.out.println("hrefHTML " + hrefHTML + "\n");
 					// Con el método "text()" obtengo el contenido que hay dentro de las etiquetas HTML
 					// Con el método "toString()" obtengo todo el HTML con etiquetas incluidas
 	 
@@ -108,11 +94,7 @@ public class MyScrapingWeb {
 			for (Element elem : hashTags) {
 				String hashTagConMichiHTML = elem.select(tagABuscar).toString();
 				String hashTagConMichi = elem.select(tagABuscar).text();
-	
-				if (!hashTagConMichiHTML.equals("")) {
-					//System.out.println("hashTagConMichiHTML " + hashTagConMichiHTML + "\n");
-					//System.out.println("hashTagConMichi " + hashTagConMichi + "\n");
-				}
+	 
 				// Con el método "text()" obtengo el contenido que hay dentro de las etiquetas HTML
 				// Con el método "toString()" obtengo todo el HTML con etiquetas incluidas
 	
@@ -140,11 +122,7 @@ public class MyScrapingWeb {
 					"twitter:app:id:iphone", "twitter:app:url:iphone", "twitter:app:name:ipad", "twitter:app:id:ipad",
 					"twitter:app:url:ipadt", "twitter:app:name:googleplay", "twitter:app:id:googleplay",
 					"twitter:app:url:googleplay" };
-	
-			// Connect to URL and extract source code
-			//Document doc; 
-				//doc = Jsoup.connect("http://stackoverflow.com/").get();
-	
+	 
 				for (String twitterTag : twitterTags) {
 	
 					// find a matching meta tag
@@ -164,7 +142,7 @@ public class MyScrapingWeb {
 						e.printStackTrace();
 					}
 					// display results
-					System.out.printf("%s = %s%n", twitterTag, content);
+					//System.out.printf("%s = %s%n", twitterTag, content);
 				}
 	 
 		}

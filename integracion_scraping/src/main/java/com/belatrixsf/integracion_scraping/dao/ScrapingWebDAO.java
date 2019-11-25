@@ -15,7 +15,13 @@ import com.belatrixsf.integracion_scraping.util.ConexionBD;
 
 public class ScrapingWebDAO extends BaseDAO {
 
-	 
+	
+	/**
+	 * Con esta método lista la informacion de la tabla parametrizable de tags 
+	 * a buscar en las paginas web solicitadas.
+	 *  
+	 * @param scrapingWeb   
+	 */
 	public static Collection<ScrapingWeb> listar() throws DAOExcepcion {
 		Collection<ScrapingWeb> scrapingWeb = new ArrayList<ScrapingWeb>();
 		Connection con = null;

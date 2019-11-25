@@ -6,6 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+/**
+ * Metodo base para las conexiones a la base de datos
+ * 
+ */
 public class BaseDAO {
 
 	protected static void cerrarConexion(Connection con) throws RuntimeException {

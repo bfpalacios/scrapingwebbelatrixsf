@@ -10,10 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList; 
 
 public class Archivo  {
-
-	//private static final String RUTA_ARCHIVO_INPUT 	= "C:\\SCRAPINGWEB\\LISTA_URL.txt"; 
-	private static final String RUTA_ARCHIVO_INPUT 	= "/Users/bfpalacios/Documents/BELTRAIXSF/LISTA_URL.txt"; 
-	//private static final String RUTA_ARCHIVO_OUTPUT = "C:\\SCRAPINGWEB\\";  
+ 
 	private static final String RUTA_ARCHIVO_OUTPUT = "/Users/bfpalacios/Documents/BELATRIXSF/";  
 	private static final String ARCHIVO_NAME_OUTPUT = "SCRAPINGWEB_DOCUMENT_OUT_";	
 	private static ArrayList<String> listaUrl;
@@ -65,25 +62,16 @@ public class Archivo  {
 	public    void crearArchivoScrapingWeb(String nombreURL, StringBuilder contenidoArchivoSalida)
 			throws FileNotFoundException, IOException {
 
-			/*String ruta = RUTA_ARCHIVO_OUTPUT+ARCHIVO_NAME_OUTPUT+nombreURL.substring(7, nombreURL.length()).replaceAll("/", "")+".txt";
-	       
-	        File archivo = new File(ruta);
-	        BufferedWriter bw = null;
-	        if(archivo.exists()) {
-	            bw = new BufferedWriter(new FileWriter(archivo));
-	            bw.write(contenidoArchivoSalida.toString());
-	        } else {
-	            bw = new BufferedWriter(new FileWriter(archivo));
-	            bw.write(contenidoArchivoSalida.toString());
-	        }
-	        bw.close();*/
+
+		MyProperties myProperties = new MyProperties(); 
 		
 		
 		BufferedWriter bw = null;
 	    FileWriter fw = null;
 
 	    try {
-	    	String ruta = RUTA_ARCHIVO_OUTPUT+ARCHIVO_NAME_OUTPUT+nombreURL.substring(7, nombreURL.length()).replaceAll("/", "")+".txt";
+	    	//String ruta = RUTA_ARCHIVO_OUTPUT+ARCHIVO_NAME_OUTPUT+nombreURL.substring(7, nombreURL.length()).replaceAll("/", "")+".txt";
+	    	String ruta = myProperties.getPropValueRutaOutput()+ARCHIVO_NAME_OUTPUT+nombreURL.substring(7, nombreURL.length()).replaceAll("/", "")+".txt";
 	        File file = new File(ruta);
 	        
 	        // Si el archivo no existe, se crea!
